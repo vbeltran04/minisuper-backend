@@ -10,10 +10,9 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                echo 'Compilando proyecto Spring Boot con Maven Wrapper...'
-                // Damos permisos de ejecución al script mvnw por si acaso y compilamos
-                sh 'chmod +x mvnw'
-                sh './mvnw clean package -DskipTests'
+                echo 'Compilando proyecto Spring Boot...'
+                // Ejecuta la compilación omitiendo los tests temporales para validar el empaquetado JAR
+                sh 'mvn clean package -DskipTests'
             }
         }
     }

@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // El nombre debe coincidir exactamente con el que pusiste en Jenkins
+        maven 'Maven3'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +16,6 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo 'Compilando proyecto Spring Boot...'
-                // Ejecuta la compilación omitiendo los tests temporales para validar el empaquetado JAR
                 sh 'mvn clean package -DskipTests'
             }
         }

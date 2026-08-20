@@ -21,8 +21,9 @@ public class ProductoService {
         return productoRepository.findAll();
     }
     
-    public Producto guardar(Producto Producto) {
-    	return productoRepository.save(Producto);  
+    public Producto guardar(Producto producto) {
+    	sumar(producto.getStockminimo(), producto.getStockmaximo());
+    	return productoRepository.save(producto);  
     }
     
     public Page<Producto> buscarProductos(String criterio, Pageable pageable) {
@@ -32,6 +33,11 @@ public class ProductoService {
                     termino, termino, pageable);
         }
         return productoRepository.findAll(pageable);
+    }
+    
+    public int sumar(int producto, int costoVenta) {
+    	int total= producto+costoVenta;
+    	return total;
     }
 
 }

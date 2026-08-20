@@ -1,0 +1,8 @@
+# Archivos de compilación de Maven
+target/
+*.class
+
+# Archivos de configuración local de Eclipse / STS
+.classpath
+.project
+.settings/

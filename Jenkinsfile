@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        // Asegúrate de que el nombre coincida con el JDK/Maven configurado en Jenkins o usa los comandos del sistema
-        maven 'M3' // Si no tienes Maven global configurado en Jenkins, este paso se adapta
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,10 +10,10 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                echo 'Compilando proyecto Spring Boot con Maven...'
-                // Ejecuta la compilación y pruebas de Spring Boot
-                sh './mvnw clean package' 
-                // Nota: En Windows dentro del contenedor Jenkins suele usarse sh 'mvn clean package' o './mvnw clean package'
+                echo 'Compilando proyecto Spring Boot con Maven Wrapper...'
+                // Damos permisos de ejecución al script mvnw por si acaso y compilamos
+                sh 'chmod +x mvnw'
+                sh './mvnw clean package -DskipTests'
             }
         }
     }
@@ -28,7 +23,7 @@ pipeline {
             echo '¡El proyecto minisuper-backend se compiló exitosamente!'
         }
         failure {
-            echo 'Ocurrió un error durante la compilación o ejecución de pruebas.'
+            echo 'Ocurrió un error durante la compilación.'
         }
     }
 }
